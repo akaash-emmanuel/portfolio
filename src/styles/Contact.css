@@ -1,0 +1,167 @@
+@font-face {
+  font-family: 'Baloo';
+  src: url('/BalooBhaijaan2-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.contact-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;  background-color: #000; /* Ensure black background before video loads */
+  font-family: 'Baloo', serif;
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 80%; /* 80% opacity as requested */
+  z-index: -1;
+}
+
+.background-video.fade-in-video {
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+.background-video.fade-in-video.visible {
+  opacity: 0.5 !important; /* 80% opacity when visible - force override */
+}
+
+.contact-title {
+  position: absolute;
+  top: 150px; /* Same location as home page title */  right: 250px; /* Same location as home page title */
+  font-family: 'Baloo', serif;
+  font-size: 5rem;
+  font-weight: 1000;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  text-align: right;
+  z-index: 1;
+}
+
+.contact-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 15.5rem;
+  margin-right: 250px;
+}
+
+.contact-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  transition: background 0.2s;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.contact-icon-link:hover {
+  background: rgba(0, 188, 212, 0.08);
+}
+
+.contact-icon {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s, box-shadow 0.2s;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  /* Remove cursor from img, only parent has pointer */
+}
+
+.contact-icon-link:hover .contact-icon {
+  transform: scale(1.15);
+  filter: drop-shadow(0 4px 16px #00bcd4) brightness(1.2);
+}
+
+.phone-number {
+  color: #fff;
+  z-index: 5;  
+  font-size: 2rem;
+  font-family: 'Baloo', serif;
+  margin-top: 2.5rem;
+  margin-right: 250px;
+  text-align: right;
+  user-select: all;
+  letter-spacing: 2px;
+}
+
+.phone-hover-group {
+  position: relative;
+}
+
+.phone-number-grid {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 120%;
+  transform: translateX(-50%);
+  min-width: 12rem;
+  padding: 0.7rem 1.5rem;
+  background: rgba(30, 30, 30, 0.65);
+  border-radius: 1.2rem;
+  border: 1.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  color: #fff;
+  font-size: 1.5rem;
+  font-family: 'Baloo', serif;
+  text-align: center;
+  letter-spacing: 2px;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  transition: opacity 0.2s, transform 0.2s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.phone-hover-group:hover .phone-number-grid {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0.5rem) scale(1.04);
+}
+
+.go-home-button-baloo {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50px;
+  padding: 0.75rem 1.7rem;
+  color: #fff;
+  font-family: 'Baloo', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(.4,1.2,.6,1);
+  z-index: 1000;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  outline: none;
+}
+
+.go-home-button-baloo:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.go-home-button-baloo:active {
+  transform: translateY(0) scale(1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}

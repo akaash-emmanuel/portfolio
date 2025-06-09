@@ -1,0 +1,222 @@
+@font-face {
+  font-family: 'Bellefair';
+  src: url('/Bellefair-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.projects-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000; /* Ensure black background before video loads */
+  font-family: 'Bellefair', serif;
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  z-index: -1;
+}
+
+.background-video.fade-in-video {
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+.background-video.fade-in-video.visible {
+  opacity: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.page-title {
+  position: absolute;
+  top: 7rem;
+  left: 8rem;
+  font-size: 4rem;
+  color: #fff;
+  z-index: 2;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.custom-grid-layout {
+  position: absolute;
+  top: 5rem;
+  left: 30vw;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  z-index: 2;
+  height: 60vh;
+}
+
+.grid-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.grid-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.grid-box {
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-box:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 40px 0 rgba(31, 38, 135, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.grid-box::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(125deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.grid-box:hover::after {
+  opacity: 1;
+}
+
+.translucent-box {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Make the right box vertical and the left two horizontal */
+.grid-box.vertical {
+  width: 22vw;
+  height: 60vh;
+  min-width: 250px;
+  min-height: 350px;
+}
+
+.grid-box.horizontal {
+  width: 22vw;
+  height: 28vh;
+  min-width: 250px;
+  min-height: 120px;
+}
+
+.circle-center {
+  width: 10vw;
+  height: 10vw;
+  min-width: 120px;
+  min-height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 60%, #bba 100%, transparent 100%);
+  border: 6px solid #fff;
+  box-shadow: 0 0 32px 8px #fff8, 0 0 0 8px #0006;
+  margin: auto;
+}
+
+.grid-box video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.3;
+  transition: opacity 0.4s ease;
+}
+
+.grid-box:hover video {
+  opacity: 1;
+}
+
+.project-content {
+  text-align: center;
+  color: white;
+  transition: transform 0.3s ease;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.project-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.project-content p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.grid-box:hover .project-content {
+  transform: translateY(-5px);
+}
+
+/* Go Back Home Button */
+.go-home-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  color: white;
+  font-family: 'Bellefair', serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.go-home-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.go-home-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
