@@ -12,7 +12,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    // Set default background color
     document.body.style.backgroundColor = '#000';
     
     return () => {
@@ -37,7 +36,6 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
-          {/* Add more routes for About page in the future */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

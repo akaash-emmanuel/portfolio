@@ -33,13 +33,18 @@ function About() {
           <div className="about-background-video">
             <video src="/aboutme.mp4" autoPlay loop muted></video>
           </div>
-          <div className="about-content">
-            <div className="about-paragraph-grid">
-              {/* Empty grid for paragraph content */}
-            </div>
-            <div className="about-picture-grid">
-              <div className="hoverable-circle">
-                {/*picture will be added here */}
+          <div className="about-overlay-box">
+            <h1 className="about-title">About Me</h1>
+            <div className="about-flex-row">
+              <div className="about-paragraph-grid">
+                <p>
+                  Hi! I’m Ray. I love building creative, interactive, and intelligent digital experiences. Whether it’s AI, games, or web apps, I’m always exploring new ways to blend technology and art. My favorite projects are the ones that make people smile, think, or feel inspired. When I’m not coding, you’ll find me sketching, gaming, or hanging out with my dog.
+                </p>
+              </div>
+              <div className="about-picture-grid">
+                <div className="hoverable-circle">
+                  <img src="/cat.png" alt="Ray's avatar" className="about-avatar" />
+                </div>
               </div>
             </div>
           </div>

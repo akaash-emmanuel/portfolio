@@ -25,14 +25,14 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  color: #fff; /* White text color for better visibility against the video */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: adds shadow to text for better readability */
+  color: #fff; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
 .fade-in {
   opacity: 0;
   animation: fadeIn 1s ease-in forwards;
-  animation-delay: 1s; /* Show after 3 seconds */
+  animation-delay: 1s; 
 }
 
 @keyframes fadeIn {
@@ -46,17 +46,17 @@
 
 .name-container {
   position: absolute;
-  top: 120px; /* Adjust to control distance from top */
-  right:250px; /* Adjust to control distance from right */
+  top: 120px; 
+  right:250px; 
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Align to the right side */
+  align-items: flex-end; 
 }
 
 .name {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Align content to the right */
+  align-items: center;
 }
 
 .first-name {
@@ -72,7 +72,7 @@
     font-weight: 1000;
     color: #fff;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-    margin-top: -100px; /* Adjust this value to control the spacing between names */
+    margin-top: -100px; 
     text-align: right;
 }
 

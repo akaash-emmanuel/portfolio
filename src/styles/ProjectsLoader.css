@@ -23,7 +23,7 @@
 .projects-loader-image {
   width: 190px;
   height: auto;
-  animation: spin 2.5s linear infinite; /* Clockwise rotation */
+  animation: spin 2.5s linear infinite; 
 }
 
 @keyframes spin {

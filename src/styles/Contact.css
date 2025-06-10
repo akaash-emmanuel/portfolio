@@ -9,7 +9,7 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow: hidden;  background-color: #000; /* Ensure black background before video loads */
+  overflow: hidden;  background-color: #000; 
   font-family: 'Baloo', serif;
 }
 
@@ -20,7 +20,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 80%; /* 80% opacity as requested */
+  opacity: 80%; 
   z-index: -1;
 }
 
@@ -35,7 +35,8 @@
 
 .contact-title {
   position: absolute;
-  top: 150px; /* Same location as home page title */  right: 250px; /* Same location as home page title */
+  top: 150px; 
+  right: 250px; 
   font-family: 'Baloo', serif;
   font-size: 5rem;
   font-weight: 1000;
@@ -78,7 +79,6 @@
   height: 100%;
   transition: transform 0.2s, box-shadow 0.2s;
   filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
-  /* Remove cursor from img, only parent has pointer */
 }
 
 .contact-icon-link:hover .contact-icon {
