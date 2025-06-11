@@ -28,11 +28,12 @@ export default defineConfig({
     cssCodeSplit: true,
     // Generate source maps for better debugging
     sourcemap: true,
-    // Minify output
-    minify: 'terser',
+    // Use esbuild minifier instead of terser to avoid dependency issues
+    minify: 'esbuild',
+    // terserOptions kept for reference if needed later
     terserOptions: {
       compress: {
-        drop_console: true, 
+        drop_console: false, // Keep console for debugging on Netlify
         drop_debugger: true
       }
     }

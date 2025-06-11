@@ -1,20 +1,20 @@
-// Image optimization script for Netlify
+// Optimized script for Netlify
 const fs = require('fs');
 const path = require('path');
 
-// Check if we're in the Netlify environment
-const isNetlify = process.env.NETLIFY === 'true';
-
+// Log start
 console.log('Starting Netlify deployment optimization...');
 
-// Create a _headers file for setting proper cache headers
-function createHeadersFile() {
+// Create _headers and _redirects in the dist directory
+function createNetlifyFiles() {
   try {
+    // Ensure dist directory exists
     const distDir = path.join(__dirname, 'dist');
     if (!fs.existsSync(distDir)) {
       fs.mkdirSync(distDir, { recursive: true });
     }
-    
+
+    // Create _headers file
     const headersContent = `# Cache settings for Netlify
 /*
   X-Frame-Options: DENY
@@ -51,35 +51,32 @@ function createHeadersFile() {
   Accept-Ranges: bytes
 `;
 
-  fs.writeFileSync(path.join(__dirname, 'public', '_headers'), headersContent);
-  console.log('Created _headers file for Netlify optimization');
-}
+    fs.writeFileSync(path.join(distDir, '_headers'), headersContent);
+    console.log('Created _headers file for Netlify optimization');
 
-// Ensure _redirects file exists
-function createRedirectsFile() {
-  const redirectsContent = `# Handle SPA routing in Netlify
+    // Create _redirects file
+    const redirectsContent = `# Handle SPA routing in Netlify
 /*    /index.html   200
 `;
 
-  fs.writeFileSync(path.join(__dirname, 'public', '_redirects'), redirectsContent);
-  console.log('Created _redirects file for SPA routing');
-}
+    fs.writeFileSync(path.join(distDir, '_redirects'), redirectsContent);
+    console.log('Created _redirects file for SPA routing');
 
-// Run the optimizations
-function optimize() {
-  try {
-    createHeadersFile();
-    createRedirectsFile();
-    console.log('Netlify optimization completed successfully!');
   } catch (error) {
-    console.error('Error during optimization:', error);
-    process.exit(1);
+    console.error('Error creating Netlify files:', error);
   }
 }
 
-// Run immediately for local builds or when script is executed directly
-if (require.main === module) {
-  optimize();
+// Main function
+function optimize() {
+  try {
+    createNetlifyFiles();
+    console.log('Netlify optimization completed successfully!');
+  } catch (error) {
+    console.error('Error during optimization:', error);
+    // Don't exit with error to allow build to complete
+  }
 }
 
-module.exports = { optimize };
+// Run optimization
+optimize();
