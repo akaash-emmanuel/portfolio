@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 import AboutMeLoader from '../components/AboutMeLoader';
@@ -6,7 +6,8 @@ import AboutMeLoader from '../components/AboutMeLoader';
 function Home() {
   const nameRef = useRef(null);
   const themeRef = useRef(null);
-  const [aboutLoading, setAboutLoading] = React.useState(false);
+  const [aboutLoading, setAboutLoading] = useState(false);
+  const [animated, setAnimated] = useState(false);
   const navigate = useNavigate();
 
   // Force font to load and apply
@@ -18,7 +19,14 @@ function Home() {
     if (themeRef.current) {
       themeRef.current.style.fontFamily = "'BalooBhaijaan2', sans-serif";
     }
-  }, []);
+    // Trigger animation only once
+    if (!animated) {
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.classList.add('animate-fade-in');
+      });
+      setAnimated(true);
+    }
+  }, [animated]);
 
   const handleAboutClick = () => {
     setAboutLoading(true);

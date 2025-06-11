@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Projects.css';
 import ProjectsLoader from '../components/ProjectsLoader';
@@ -7,7 +7,13 @@ function Projects() {
   const [loading, setLoading] = useState(true);
   const [goingHome, setGoingHome] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [animated, setAnimated] = useState(false);
   const navigate = useNavigate();
+
+  // Refs for animated elements
+  const titleRef = useRef(null);
+  const gridRef = useRef(null);
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -15,6 +21,15 @@ function Projects() {
       document.body.style.overflow = '';
     };
   }, []);
+
+  useEffect(() => {
+    if (!loading && !goingHome && !animated) {
+      titleRef.current?.classList.add('animate-fade-in');
+      gridRef.current?.classList.add('animate-fade-in');
+      setAnimated(true);
+    }
+  }, [loading, goingHome, animated]);
+
   const handleLoadingComplete = () => {
     setLoading(false);
   };
@@ -54,8 +69,8 @@ function Projects() {
             <source src="/projects.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <div className="page-title">Projects</div>
-          <div className="custom-grid-layout">            <div className="grid-left">
+          <div className="page-title" ref={titleRef}>Projects</div>
+          <div className="custom-grid-layout" ref={gridRef}>            <div className="grid-left">
               <div className="grid-box horizontal translucent-box" onClick={() => window.open('https://notdoneyetbrosorry.com', '_blank')} onMouseEnter={(e) => {
                 const video = e.currentTarget.querySelector('video');
                 if (video) {
@@ -77,8 +92,8 @@ function Projects() {
                   preload="none"
                 ></video>
                 <div className="project-content">
-                  <h2>Sentient</h2>
-                  <p>An intelligent 2D game experience featuring an adaptive enemy agent that learns player behavior in real time using reinforcement learning and behavioral analytics, built with PyGame and PyTorch for dynamic, responsive gameplay.</p>
+                  <h2>ScratchNet</h2>
+                  <p>Built a simple neural network from scratch using Python and NumPy. Implemented backpropagation, trained on XOR and digit datasets, and extended to basic CNNs. Focused on understanding core ML concepts without libraries.</p>
                 </div>
               </div>              <div className="grid-box horizontal translucent-box" onClick={() => window.open('https:thisoneisntdonetoo.com', '_blank')} onMouseEnter={(e) => {
                 const video = e.currentTarget.querySelector('video');

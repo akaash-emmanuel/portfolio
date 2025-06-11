@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Contact.css';
 import Loader from '../components/Loader';
@@ -7,7 +7,12 @@ function Contact() {
   const [loading, setLoading] = useState(true);
   const [videoReady, setVideoReady] = useState(false);
   const [goingHome, setGoingHome] = useState(false);
+  const [animated, setAnimated] = useState(false);
   const navigate = useNavigate();
+
+  // Refs for animated elements
+  const titleRef = useRef(null);
+  const iconsRef = useRef(null);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -16,6 +21,14 @@ function Contact() {
       document.body.style.overflow = '';
     };
   }, []);
+
+  useEffect(() => {
+    if (!loading && !goingHome && !animated) {
+      titleRef.current?.classList.add('animate-fade-in');
+      iconsRef.current?.classList.add('animate-fade-in');
+      setAnimated(true);
+    }
+  }, [loading, goingHome, animated]);
 
   const handleLoadingComplete = () => {
     setLoading(false);
@@ -58,9 +71,8 @@ function Contact() {
             <source src="/contact.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          
-          <div className="contact-title">Contact me</div>
-          <div className="contact-icons">
+          <div className="contact-title" ref={titleRef}>Contact me</div>
+          <div className="contact-icons" ref={iconsRef}>
             <a className="contact-icon-link" href="https://mail.google.com/mail/?view=cm&to=rayipudiemmanuel@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Gmail">
               <img src="/gmail-svgrepo-com.svg" alt="Gmail" className="contact-icon" />
             </a>

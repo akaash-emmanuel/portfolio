@@ -38,27 +38,64 @@
   z-index: 2;
 }
 
-.about-title {
-  font-family: 'Baloo', 'Arial', sans-serif;
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #fff;
-  margin-bottom: 1.5rem;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.25);
-}
-
-.about-flex-row {
+.about-overlay-box.custom-about-layout {
+  position: absolute;
+  left: 6vw;
+  bottom: 9vh;
+  right: unset;
+  top: unset;
+  margin: 0;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   gap: 2.5rem;
+  background: rgba(30, 30, 30, 0.55);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  border-radius: 18px;
+  padding: 3rem 3.5rem;
+  min-width: 600px;
+  min-height: 420px;
+  z-index: 2;
+}
+
+.about-header-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  position: absolute;
+  left: 6vw;
+  bottom: calc(9vh + 420px + 1rem); /* place above the box, adjust as needed */
+  z-index: 10;
+}
+
+.about-title {
+  position: static;
+  color: #fff;
+  font-size: 5rem;
+  font-family: 'Baloo', 'Arial', sans-serif;
+  font-weight: bold;
+  margin-bottom: 0;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.25);
+  z-index: 6;
+}
+
+.about-left-column {
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
+  gap: 2rem;
+}
+
+.about-left-column .about-title {
+  display: none;
 }
 
 .about-paragraph-grid {
-  flex: 2;
-  color: #222;
-  font-size: 1.15rem;
-  font-family: 'Arial', sans-serif;
+  color: #fff !important;
+  font-size: 1.5rem;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
   background: none;
   box-shadow: none;
   padding: 0;
@@ -69,6 +106,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.about-right-column {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 320px;
 }
 
 .hoverable-circle {
@@ -90,8 +134,8 @@
 }
 
 .about-avatar {
-  width: 90px;
-  height: 90px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
   border: 2.5px solid #fff;
@@ -116,11 +160,69 @@
   background-color: #1E322D;
 }
 
+/* Fade-in animation */
+@keyframes about-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Remove animation from default state */
+.about-overlay-box,
+.about-header-row,
+.about-avatar,
+.about-paragraph-grid,
+.about-title,
+.hoverable-circle {
+  opacity: 0;
+}
+
+/* Add a class to trigger animation only once */
+.animate-fade-in {
+  animation: about-fade-in 1s ease forwards;
+}
+
+.about-header-row.animate-fade-in {
+  animation-delay: 0.1s;
+}
+.about-overlay-box.animate-fade-in {
+  animation-delay: 0.25s;
+}
+.about-title.animate-fade-in {
+  animation-delay: 0.35s;
+}
+.about-paragraph-grid.animate-fade-in {
+  animation-delay: 0.45s;
+}
+.hoverable-circle.animate-fade-in,
+.about-avatar.animate-fade-in {
+  animation-delay: 0.55s;
+}
+
 @media (max-width: 900px) {
   .about-overlay-box {
     width: 90vw;
     left: 2vw;
     padding: 1.5rem 1rem 1.5rem 1rem;
+  }
+  .about-overlay-box.custom-about-layout {
+    flex-direction: column;
+    align-items: center;
+    min-width: 90vw;
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+  .about-left-column {
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .about-right-column {
+    min-width: unset;
   }
   .about-flex-row {
     flex-direction: column;
