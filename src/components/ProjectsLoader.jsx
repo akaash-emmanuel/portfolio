@@ -1,29 +1,31 @@
 import { useState, useEffect } from 'react';
 import '../styles/ProjectsLoader.css';
 
-function ProjectsLoader({ onLoadingComplete }) {
+function ProjectsLoader({ onLoadingComplete, untilReady }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Set a timeout to hide the loader after 1.5 seconds
+    if (untilReady === false) {
+      setIsLoading(false);
+      if (onLoadingComplete) onLoadingComplete();
+      return;
+    }
+    // fallback timeout in case untilReady is never set
     const timer = setTimeout(() => {
       setIsLoading(false);
-      if (onLoadingComplete) {
-        onLoadingComplete();
-      }
-    }, 1500);
-
-    // Clean up the timer
+      if (onLoadingComplete) onLoadingComplete();
+    }, 4000);
     return () => clearTimeout(timer);
-  }, [onLoadingComplete]);
+  }, [onLoadingComplete, untilReady]);
 
-  return isLoading ? (
+  if (!isLoading) return null;
+  return (
     <div className="projects-loader-container">
       <div className="projects-loader-image-container">
         <img src="/moon.png" alt="Loading..." className="projects-loader-image" />
       </div>
     </div>
-  ) : null;
+  );
 }
 
 export default ProjectsLoader;

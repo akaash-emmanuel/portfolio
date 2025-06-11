@@ -31,6 +31,12 @@ function Contact() {
     }
   }, [loading, goingHome, animated]);
 
+  useEffect(() => {
+    if (videoReady) {
+      setTimeout(() => setLoading(false), 200);
+    }
+  }, [videoReady]);
+
   const handleLoadingComplete = () => {
     setLoading(false);
   };
@@ -57,44 +63,50 @@ function Contact() {
 
   return (
     <>
-      {(loading || goingHome) && <Loader onLoadingComplete={handleLoadingComplete} />}
-      {!loading && !goingHome && (
-        <div className={`contact-page${pageVisible ? ' page-visible' : ''}`}>
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            className="background-video"
-            playsInline
-            preload="auto"
-            onCanPlay={() => setPageVisible(true)}
-            style={{ width: '100vw', height: '100vh', objectFit: 'cover', position: 'fixed', top: 0, left: 0, zIndex: 0, opacity: 0.8 }}
-          >
-            <source src="/contact.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div className="contact-title" ref={titleRef}>Contact me</div>
-          <div className="contact-icons" ref={iconsRef}>
-            <a className="contact-icon-link" href="https://mail.google.com/mail/?view=cm&to=rayipudiemmanuel@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Gmail">
-              <img src="/gmail-svgrepo-com.svg" alt="Gmail" className="contact-icon" />
-            </a>
-            <a className="contact-icon-link" href="https://www.linkedin.com/in/akaash-rayipudi-518192256/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <img src="/linkedin-svgrepo-com.svg" alt="LinkedIn" className="contact-icon" />
-            </a>
-            <div className="contact-icon-link phone-hover-group" aria-label="Show phone number">
-              <img src="/phone-svgrepo-com.svg" alt="Phone" className="contact-icon" />
-              <div className="phone-number-grid">8197699433</div>
+      <div className={`contact-page${pageVisible ? ' page-visible' : ''}`}>        <video 
+          autoPlay 
+          muted 
+          loop 
+          className="background-video"
+          playsInline
+          preload="auto"
+          onCanPlay={() => { setPageVisible(true); setVideoReady(true); }}
+          onError={() => { setPageVisible(true); setVideoReady(true); }}
+          fetchPriority="high"
+          style={{ width: '100vw', height: '100vh', objectFit: 'cover', position: 'fixed', top: 0, left: 0, zIndex: 0, opacity: 0.8 }}
+        >
+          <source src="/contact.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        
+        {loading && <Loader untilReady={!videoReady ? true : false} />}
+        {!loading && !goingHome && (
+          <>
+            <div className="contact-title" ref={titleRef}>Contact me</div>
+            <div className="contact-icons" ref={iconsRef}>
+              <a className="contact-icon-link" href="https://mail.google.com/mail/?view=cm&to=rayipudiemmanuel@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Gmail">
+                <img src="/gmail-svgrepo-com.svg" alt="Gmail" className="contact-icon" />
+              </a>
+              <a className="contact-icon-link" href="https://www.linkedin.com/in/akaash-rayipudi-518192256/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <img src="/linkedin-svgrepo-com.svg" alt="LinkedIn" className="contact-icon" />
+              </a>
+              <div className="contact-icon-link phone-hover-group" aria-label="Show phone number">
+                <img src="/phone-svgrepo-com.svg" alt="Phone" className="contact-icon" />
+                <div className="phone-number-grid">8197699433</div>
+              </div>
             </div>
-          </div>
-          <button
-            className="go-home-button-baloo"
-            onClick={handleGoHome}
-            aria-label="Go back to home page"
-          >
-            ← Home
-          </button>
-        </div>
-      )}
+            <button
+              className="go-home-button-baloo"
+              onClick={handleGoHome}
+              aria-label="Go back to home page"
+            >
+              ← Home
+            </button>
+          </>
+        )}
+        
+        {goingHome && <Loader />}
+      </div>
     </>
   );
 }

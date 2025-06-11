@@ -1,29 +1,31 @@
 import { useState, useEffect } from 'react';
 import '../styles/Loader.css';
 
-function Loader({ onLoadingComplete }) {
+function Loader({ onLoadingComplete, untilReady }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Set a timeout to hide the loader after 3 seconds
+    if (untilReady === false) {
+      setIsLoading(false);
+      if (onLoadingComplete) onLoadingComplete();
+      return;
+    }
+    // fallback timeout in case untilReady is never set
     const timer = setTimeout(() => {
       setIsLoading(false);
-      if (onLoadingComplete) {
-        onLoadingComplete();
-      }
-    }, 1500);
-
-    // Clean up the timer
+      if (onLoadingComplete) onLoadingComplete();
+    }, 4000);
     return () => clearTimeout(timer);
-  }, [onLoadingComplete]);
+  }, [onLoadingComplete, untilReady]);
 
-  return isLoading ? (
+  if (!isLoading) return null;
+  return (
     <div className="loader-container">
       <div className="loader-image-container">
         <img src="/cat.png" alt="Loading..." className="loader-image" />
       </div>
     </div>
-  ) : null;
+  );
 }
 
 export default Loader;

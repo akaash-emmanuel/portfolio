@@ -186,6 +186,8 @@
 .about-title,
 .hoverable-circle {
   opacity: 0;
+  will-change: opacity, transform; /* Hardware acceleration hint */
+  backface-visibility: hidden; /* Reduces flickering */
 }
 
 /* Add a class to trigger animation only once */

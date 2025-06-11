@@ -20,6 +20,14 @@ function About() {
   const circleRef = useRef(null);
   const avatarRef = useRef(null);
 
+  // Only show loader until video is ready
+  useEffect(() => {
+    if (videoReady && !goingHome) {
+      // Small delay for smoothness
+      setTimeout(() => setLoading(false), 200);
+    }
+  }, [videoReady, goingHome]);
+
   useEffect(() => {
     if (!loading && !goingHome && !animated) {
       // Add animate-fade-in class only once after loader
@@ -34,7 +42,7 @@ function About() {
   }, [loading, goingHome, animated]);
 
   const handleLoadingComplete = () => {
-    setLoading(false);
+    // Loader will be hidden by videoReady effect
   };
 
   const handleVideoCanPlay = () => {
@@ -48,39 +56,50 @@ function About() {
       navigate('/');
     }, 1500);
   };
-
   return (
     <>
-      {(loading || goingHome) && <AboutMeLoader onLoadingComplete={handleLoadingComplete} />}
-      {!loading && !goingHome && (
-        <div className={`about-page-container${pageVisible ? ' page-visible' : ''}`}>
-          <div className="about-background-video">
-            <video src="/aboutme.mp4" autoPlay loop muted playsInline preload="auto" onCanPlay={handleVideoCanPlay}></video>
-          </div>
-          <div className="about-header-row" ref={headerRef}>
-            <h1 className="about-title" ref={titleRef}>About Me</h1>
-            <div className="hoverable-circle" ref={circleRef}>
-              <img src="/me.jpeg" alt="Ray's avatar" className="about-avatar" ref={avatarRef} />
-            </div>
-          </div>
-          <div className="about-overlay-box custom-about-layout" ref={overlayRef}>
-            <div className="about-right-column">
-              <div className="about-paragraph-grid" ref={paragraphRef} style={{ color: '#fff', fontSize: '1.2rem', lineHeight: '1.7' }}>
-                <span className="typewriter-text">
-                I’m passionate about building things that don’t just work, they impress. Whether it’s a sleek interface or an innovative idea, I love using cutting-edge technology to make life easier, smarter, and a bit more fun all for the dopamine hit. Lately, I’ve been diving deep into the world of AI and machine learning, fascinated by how these tools can evolve further. As a final-year computer science student, I’m always experimenting, learning, and pushing boundaries. If there’s a challenge that needs creativity and a touch of the future, you’ll probably find me right in the middle of it with coffee in hand, code on screen, and curiosity in overdrive.
-                </span>
+      <div className={`about-page-container${pageVisible ? ' page-visible' : ''}`}> 
+        <div className="about-background-video">
+          <video 
+            src="/aboutme.mp4" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            preload="auto" 
+            onCanPlay={handleVideoCanPlay}
+            onError={() => setVideoReady(true)} // Force content to show even if video fails
+            fetchPriority="high" // Prioritize video loading
+          ></video>
+        </div>
+        {(loading || goingHome) && <AboutMeLoader onLoadingComplete={handleLoadingComplete} />} 
+        {!loading && !goingHome && (
+          <>
+            <div className="about-header-row" ref={headerRef}>
+              <h1 className="about-title" ref={titleRef}>About Me</h1>
+              <div className="hoverable-circle" ref={circleRef}>
+                <img src="/me.jpeg" alt="Ray's avatar" className="about-avatar" ref={avatarRef} />
               </div>
             </div>
-          </div>
-          <button
-            className="go-home-button-baloo"
-            onClick={handleGoHome}
-            aria-label="Go back to home page"
-          >
-            ← Home
-          </button>
-        </div>
-      )}
+            <div className="about-overlay-box custom-about-layout" ref={overlayRef}>
+              <div className="about-right-column">
+                <div className="about-paragraph-grid" ref={paragraphRef} style={{ color: '#fff', fontSize: '1.2rem', lineHeight: '1.7' }}>
+                  <span className="typewriter-text">
+                  I’m passionate about building things that don’t just work, they impress. Whether it’s a sleek interface or an innovative idea, I love using cutting-edge technology to make life easier, smarter, and a bit more fun all for the dopamine hit. Lately, I’ve been diving deep into the world of AI and machine learning, fascinated by how these tools can evolve further. As a final-year computer science student, I’m always experimenting, learning, and pushing boundaries. If there’s a challenge that needs creativity and a touch of the future, you’ll probably find me right in the middle of it with coffee in hand, code on screen, and curiosity in overdrive.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              className="go-home-button-baloo"
+              onClick={handleGoHome}
+              aria-label="Go back to home page"
+            >
+              ← Home
+            </button>
+          </>
+        )}
+      </div>
     </>
   );
 }

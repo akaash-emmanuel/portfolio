@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio</title>
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/BalooBhaijaan2-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/home.mp4" as="video" type="video/mp4" />
+    <link rel="preload" href="/cat.png" as="image" />
+    <link rel="preload" href="/paintbrush.png" as="image" />
+    
+    <!-- DNS prefetching -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <meta name="description" content="Akaash Emmanuel's Portfolio - Web Developer and Designer" />
+    
     <style>
       @font-face {
         font-family: 'BalooBhaijaan2';
@@ -11,6 +23,12 @@
         font-weight: 500;
         font-style: normal;
         font-display: swap;
+      }
+      
+      /* Add a base loading style to prevent FOUC */
+      body {
+        background-color: #000;
+        color: #fff;
       }
     </style>
   </head>
