@@ -8,6 +8,7 @@ function Projects() {
   const [goingHome, setGoingHome] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const [animated, setAnimated] = useState(false);
+  const [pageVisible, setPageVisible] = useState(false);
   const navigate = useNavigate();
 
   // Refs for animated elements
@@ -56,14 +57,15 @@ function Projects() {
     <>
       {(loading || goingHome) && <ProjectsLoader onLoadingComplete={handleLoadingComplete} />}
       {!loading && !goingHome && (
-        <div className="projects-page" style={{ backgroundColor: '#111' }}>
+        <div className={`projects-page${pageVisible ? ' page-visible' : ''}`} style={{ backgroundColor: '#111', fontFamily: "'Bellefair', serif" }}>
           <video 
             autoPlay 
             muted 
             loop 
             className={`background-video fade-in-video${videoReady ? ' visible' : ''}`}
             playsInline
-            onCanPlay={handleVideoCanPlay}
+            preload="auto"
+            onCanPlay={(e) => { setVideoReady(true); setPageVisible(true); }}
             style={{ width: '100vw', height: '100vh', objectFit: 'cover', position: 'absolute', top: 0, left: 0, zIndex: 0 }}
           >
             <source src="/projects.mp4" type="video/mp4" />

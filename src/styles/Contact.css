@@ -11,6 +11,12 @@
   height: 100vh;
   overflow: hidden;  background-color: #000; 
   font-family: 'Baloo', serif;
+  visibility: hidden;
+}
+
+.contact-page.page-visible {
+  visibility: visible;
+  transition: visibility 0s 0.1s;
 }
 
 .background-video {

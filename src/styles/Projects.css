@@ -11,7 +11,13 @@
   height: 100vh;
   overflow: hidden;
   background-color: #000; 
+  visibility: hidden;
   font-family: 'Bellefair', serif;
+}
+
+.projects-page.page-visible {
+  visibility: visible;
+  transition: visibility 0s 0.1s;
 }
 
 .background-video {

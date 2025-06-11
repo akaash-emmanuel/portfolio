@@ -9,6 +9,7 @@ function About() {
   const [videoReady, setVideoReady] = useState(false);
   const [goingHome, setGoingHome] = useState(false);
   const [animated, setAnimated] = useState(false);
+  const [pageVisible, setPageVisible] = useState(false);
   const navigate = useNavigate();
 
   // Refs for animated elements
@@ -38,6 +39,7 @@ function About() {
 
   const handleVideoCanPlay = () => {
     setVideoReady(true);
+    setPageVisible(true);
   };
 
   const handleGoHome = () => {
@@ -51,9 +53,9 @@ function About() {
     <>
       {(loading || goingHome) && <AboutMeLoader onLoadingComplete={handleLoadingComplete} />}
       {!loading && !goingHome && (
-        <div className="about-page-container">
+        <div className={`about-page-container${pageVisible ? ' page-visible' : ''}`}>
           <div className="about-background-video">
-            <video src="/aboutme.mp4" autoPlay loop muted playsInline preload="auto"></video>
+            <video src="/aboutme.mp4" autoPlay loop muted playsInline preload="auto" onCanPlay={handleVideoCanPlay}></video>
           </div>
           <div className="about-header-row" ref={headerRef}>
             <h1 className="about-title" ref={titleRef}>About Me</h1>
@@ -64,9 +66,9 @@ function About() {
           <div className="about-overlay-box custom-about-layout" ref={overlayRef}>
             <div className="about-right-column">
               <div className="about-paragraph-grid" ref={paragraphRef} style={{ color: '#fff', fontSize: '1.2rem', lineHeight: '1.7' }}>
-                <p>
-                 I’m passionate about building things that don’t just work, they impress. Whether it’s a sleek interface or an innovative idea, I love using cutting-edge technology to make life easier, smarter, and a bit more fun all for the dopamine hit. Lately, I’ve been diving deep into the world of AI and machine learning, fascinated by how these tools can evolve further. As a final-year computer science student, I’m always experimenting, learning, and pushing boundaries. If there’s a challenge that needs creativity and a touch of the future, you’ll probably find me right in the middle of it with coffee in hand, code on screen, and curiosity in overdrive.
-                </p>
+                <span className="typewriter-text">
+                I’m passionate about building things that don’t just work, they impress. Whether it’s a sleek interface or an innovative idea, I love using cutting-edge technology to make life easier, smarter, and a bit more fun all for the dopamine hit. Lately, I’ve been diving deep into the world of AI and machine learning, fascinated by how these tools can evolve further. As a final-year computer science student, I’m always experimenting, learning, and pushing boundaries. If there’s a challenge that needs creativity and a touch of the future, you’ll probably find me right in the middle of it with coffee in hand, code on screen, and curiosity in overdrive.
+                </span>
               </div>
             </div>
           </div>

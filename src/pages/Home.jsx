@@ -8,6 +8,7 @@ function Home() {
   const themeRef = useRef(null);
   const [aboutLoading, setAboutLoading] = useState(false);
   const [animated, setAnimated] = useState(false);
+  const [pageVisible, setPageVisible] = useState(false);
   const navigate = useNavigate();
 
   // Force font to load and apply
@@ -36,8 +37,8 @@ function Home() {
   };
 
   return (
-    <div className="home-page">
-      <video autoPlay muted loop className="background-video">
+    <div className={`home-page${pageVisible ? ' page-visible' : ''}`}>
+      <video autoPlay muted loop className="background-video" playsInline preload="auto" onCanPlay={() => setPageVisible(true)}>
         <source src="/home.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>      

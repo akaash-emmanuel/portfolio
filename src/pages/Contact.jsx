@@ -8,6 +8,7 @@ function Contact() {
   const [videoReady, setVideoReady] = useState(false);
   const [goingHome, setGoingHome] = useState(false);
   const [animated, setAnimated] = useState(false);
+  const [pageVisible, setPageVisible] = useState(false);
   const navigate = useNavigate();
 
   // Refs for animated elements
@@ -58,14 +59,15 @@ function Contact() {
     <>
       {(loading || goingHome) && <Loader onLoadingComplete={handleLoadingComplete} />}
       {!loading && !goingHome && (
-        <div className="contact-page">
+        <div className={`contact-page${pageVisible ? ' page-visible' : ''}`}>
           <video 
             autoPlay 
             muted 
             loop 
             className="background-video"
             playsInline
-            onCanPlay={handleVideoCanPlay}
+            preload="auto"
+            onCanPlay={() => setPageVisible(true)}
             style={{ width: '100vw', height: '100vh', objectFit: 'cover', position: 'fixed', top: 0, left: 0, zIndex: 0, opacity: 0.8 }}
           >
             <source src="/contact.mp4" type="video/mp4" />
