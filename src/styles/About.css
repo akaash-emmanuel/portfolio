@@ -9,6 +9,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  visibility: hidden;
+}
+
+.about-page-container.page-visible {
+  visibility: visible;
+  transition: visibility 0s 0.1s;
 }
 
 .about-background-video video {
